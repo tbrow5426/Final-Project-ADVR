@@ -1,0 +1,31 @@
+{
+    "id": "4C6C4348",
+    "path": "~/Documents/Final Project ADVR/stress-by-path.qmd",
+    "project_path": "stress-by-path.qmd",
+    "type": "quarto_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1795355531770.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "rmdVisualMode": "true",
+        "rmdVisualWrapConfigured": "true",
+        "source_window_id": "",
+        "Source": "Source",
+        "docOutlineVisible": "1",
+        "rmdVisualCollapsedChunks": "",
+        "cursorPosition": "0,0",
+        "scrollLine": "0",
+        "rmdVisualModeLocation": "153:0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1795374562,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1795374562781,
+    "read_only": false,
+    "read_only_alternatives": []
+}

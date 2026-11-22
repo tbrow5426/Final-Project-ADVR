@@ -1,0 +1,49 @@
+---
+title: "Where We Begin"
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+> Stress is a major issue for many students in academia. In small, manageable amounts, stress can actually help. This positive stress, called eustress, can keep us motivated and focused. But when stress builds too high, it puts students at a disadvantage, affecting their sleep, focus, health, and performance in school.
+
+```{r}
+#install.packages("DiagrammeR")
+library(DiagrammeR)
+```
+
+### How stress builds and who get support?
+
+```{r}
+#| label: support-gap
+#| fig-width: 6
+#| fig-height: 6.5
+#| fig-alt: "Grid of 100 squares. 40 coral squares show students with depression or anxiety symptoms who got no treatment; 60 teal squares show students who did."
+
+library(dplyr)
+library(ggplot2)
+
+waffle <- expand.grid(x = 1:10, y = 1:10) |>
+  arrange(desc(y), x) |>
+  mutate(id = row_number(),
+         status = if_else(id <= 40, "No treatment", "Got treatment"),
+         status = factor(status, levels = c("No treatment", "Got treatment")))
+
+ggplot(waffle, aes(x = x, y = y, fill = status)) +
+  geom_tile(color = "white", linewidth = 1.5) +
+  coord_equal() +
+  scale_fill_manual(values = c("No treatment" = "#B85042",
+                               "Got treatment" = "#2F6F73")) +
+  labs(title = "4 in 10 students who are struggling get no treatment",
+       subtitle = "Each square is 1 of 100 college students with depression or anxiety symptoms",
+       fill = NULL,
+       caption = "Source: Healthy Minds Study, 2024–2025 (84,000+ students, 135 schools)") +
+  theme_void(base_size = 13) +
+  theme(plot.title = element_text(face = "bold", color = "#1F4E51", size = 16),
+        plot.subtitle = element_text(color = "#5E6B6A", margin = margin(b = 10)),
+        plot.caption = element_text(color = "#5E6B6A", hjust = 0, margin = margin(t = 10)),
+        legend.position = "bottom",
+        legend.text = element_text(size = 12),
+        plot.margin = margin(10, 10, 10, 10))
+```

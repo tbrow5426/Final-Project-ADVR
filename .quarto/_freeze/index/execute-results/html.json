@@ -1,0 +1,17 @@
+{
+  "hash": "ad6b7f6b7e3d7b8550292d9beba30b32",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Where We Begin\"\nexecute:\n  echo: false\n  warning: false\n  message: false\n---\n\n> Stress is a major issue for many students in academia. In small, manageable amounts, stress can actually help. This positive stress, called eustress, can keep us motivated and focused. But when stress builds too high, it puts students at a disadvantage, affecting their sleep, focus, health, and performance in school.\n\n\n::: {.cell}\n\n:::\n\n\n### How stress builds and who get support?\n\n\n::: {.cell}\n::: {.cell-output-display}\n![](index_files/figure-html/support-gap-1.png){fig-alt='Grid of 100 squares. 40 coral squares show students with depression or anxiety symptoms who got no treatment; 60 teal squares show students who did.' width=576}\n:::\n:::\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

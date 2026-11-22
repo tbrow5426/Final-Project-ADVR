@@ -1,0 +1,154 @@
+---
+title: "Family Expectations and the Pressure to Achieve"
+subtitle: "How parents' degrees, and parents' dreams, can raise the stakes for students"
+author: "Theodore Brown Jr."
+format:
+  html:
+    toc: true
+    toc-title: "On this page"
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+library(dplyr)
+library(tibble)
+library(ggplot2)
+library(DiagrammeR)
+
+teal      <- "#2F6F73"
+teal_dark <- "#1F4E51"
+sage      <- "#CFE0DA"
+coral     <- "#B85042"
+muted     <- "#5E6B6A"
+```
+
+Family involvement can be one of a student's greatest strengths. Parents who encourage, guide, and believe in their children give them a reason to keep going. But when expectations feel **excessive**, the same involvement can become pressure. Students may feel they have to reach a certain degree, or a certain title, to make their family proud or to stay at the level their family already reached.
+
+Research points to two different paths to that pressure:
+
+| | **Following in their footsteps** | **Reaching for what parents couldn't** |
+|---|---|---|
+| **Who** | Students whose parents hold degrees (college, MD, JD, PhD) | First-generation students, often from families that sacrificed for their education |
+| **The pressure** | "I have to at least match what my parents achieved." | "I have to succeed for my whole family." |
+| **What students fear** | Falling below the family's status | Letting down the people who made it possible |
+| **What research shows** | Higher physical stress when starting college | More depressive symptoms when guilt about leaving family behind is high |
+
+## Path 1: Following in their footsteps
+
+A Swiss-German study measured cortisol, the body's stress hormone, stored in the hair of 71 first-semester college women. Students with **at least one parent who had a university degree** showed higher stress levels than students from non-academic households, even though the two groups didn't differ in other respects. The researchers' explanation: students from academic families may fear a **drop in social status** if they fail, while students without that legacy have less to lose. The authors call their findings *preliminary*, since the sample was small.
+
+This pattern matters in professional fields, where many students follow a parent's path:
+
+```{r}
+#| label: legacy-chart
+#| fig-width: 8
+#| fig-height: 2.6
+#| fig-alt: "Bar chart: physicians make up about 1% of the U.S. adult workforce, but 22% of third-year medical students in a national study had a physician parent or grandparent."
+
+legacy <- tribble(
+  ~group,                                                       ~pct,
+  "Physicians in the U.S.\nadult workforce",                    1,
+  "Medical students with a\nphysician parent or grandparent",   22
+) |>
+  mutate(group = factor(group, levels = rev(group)))
+
+ggplot(legacy, aes(x = pct, y = group)) +
+  geom_col(fill = c(sage, teal), width = 0.55) +
+  geom_text(aes(label = paste0(pct, "%")), hjust = -0.25, size = 4.6, color = "#24302F") +
+  scale_x_continuous(limits = c(0, 30), expand = c(0, 0)) +
+  labs(x = NULL, y = NULL,
+       caption = paste0(
+         "Other studies find 13% to 44% of entering medical students have at least one physician parent.\n",
+         "Sources: Choi et al., MedEdPublish (2018), national survey of third-year students at 24 U.S. schools;\n",
+         "Strowd et al., Wake Forest Journal of Science & Medicine (2020)."
+       )) +
+  theme_minimal(base_size = 13) +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_blank(),
+        axis.text.y = element_text(color = "#24302F", lineheight = 1.1),
+        plot.caption = element_text(color = muted, hjust = 0, size = 9.5),
+        plot.title.position = "plot")
+```
+
+Children of physicians are far more common in medical school than physicians are in the general workforce. Having a parent in the field can bring real advantages, like guidance and connections. It can also bring a quiet expectation that medicine is the "right" path.
+
+## Path 2: Reaching for what parents couldn't
+
+For many first-generation students, **family is a central reason** for pursuing a degree. Psychologist Rebecca Covarrubias and colleagues describe **family achievement guilt**: discomfort with one's own college success when family members didn't have the same opportunities. Students may feel guilty about having more freedom, learning things their family can't share, or being away when the family is struggling.
+
+That guilt has a cost. In one study, first-generation students reported **significantly more depressive symptoms** when their family achievement guilt was high, compared with students whose parents had attended college.
+
+Support also matters in a specific way. First-generation students in one study received just as much **moral** support ("we're proud of you") from family as other students, but less **academic** support (help understanding how college works). Encouragement without a roadmap can leave students feeling they must succeed without knowing how.
+
+## The pressure is rising
+
+Psychologists Thomas Curran and Andrew Hill pooled 82 studies of about 24,000 college students in the U.S., Canada, and the U.K. They found that students' perceptions of **parental expectations and parental criticism increased steadily from 1989 to 2019**. Those perceptions were strongly linked to **socially prescribed perfectionism**: the belief that others demand perfection from you. Perfectionism, in turn, contributes to depression and anxiety.
+
+> "Parental expectations have a high cost when they're perceived as excessive." — Thomas Curran
+
+## How the system works
+
+```{r}
+#| label: family-loop
+#| fig-alt: "Causal loop diagram. Parents' degree status and parents' unmet dreams both raise perceived expectations, which raise pressure to achieve. Pressure raises perfectionism and stress, which raise fear of disappointing family, which reduces help-seeking, which raises stress further. Achievement raises the family's expectations further. Open family conversations and academic support reduce perceived pressure."
+
+grViz("
+digraph family_pressure {
+  graph [rankdir = LR, bgcolor = 'transparent', fontname = 'Helvetica', nodesep = 0.4, ranksep = 0.5]
+  node  [shape = box, style = 'rounded,filled', fillcolor = '#F2F4F4',
+         color = '#9AA5A6', fontname = 'Helvetica', fontsize = 12]
+  edge  [color = '#5B6B6C', fontname = 'Helvetica', fontsize = 11]
+
+  legacy   [label = 'Parents hold\\nadvanced degrees']
+  dreams   [label = 'Parents want what\\nthey could not have']
+  expect   [label = 'Perceived family\\nexpectations']
+  pressure [label = 'Pressure\\nto achieve']
+  perfect  [label = 'Perfectionism']
+  stress   [label = 'Stress', fillcolor = '#F6D8D2', color = '#B85042']
+  fear     [label = 'Fear of\\ndisappointing family']
+  help     [label = 'Seeking help']
+  achieve  [label = 'Achievement\\n(next degree, title)']
+  support  [label = 'Open family talks +\\nacademic support',
+            fillcolor = '#2F6F73', color = '#2F6F73', fontcolor = 'white']
+
+  legacy   -> expect   [label = '+']
+  dreams   -> expect   [label = '+']
+  expect   -> pressure [label = '+']
+  pressure -> perfect  [label = '+']
+  perfect  -> stress   [label = '+']
+  stress   -> fear     [label = '+']
+  fear     -> help     [label = '−']
+  help     -> stress   [label = '−']
+  pressure -> achieve  [label = '+']
+  achieve  -> expect   [label = '+  (the bar rises)']
+  support  -> pressure [label = '−']
+}
+")
+```
+
+**How to read this:** a **+** means the two move in the same direction, and a **−** means they move in opposite directions. The map shows two loops:
+
+- **The bar keeps rising:** each achievement can raise the family's expectations for the next one. A bachelor's degree leads to "now medical school," and the finish line keeps moving.
+- **Struggling in silence:** stress raises the fear of disappointing family. That fear makes asking for help feel like admitting failure, so stress keeps building.
+
+The **leverage point** is the link between expectations and pressure. Open conversations with family about what success really means, and practical academic support (mentors, first-generation programs, advisors), can keep high hopes from turning into harmful pressure.
+
+## What this means for students
+
+- **Your family's pride is not the same as their expectations.** Many parents want their children to be happy and healthy first. Saying out loud what you're feeling can change the conversation.
+- **Find the roadmap, not just the encouragement.** Advisors, mentors, and first-generation student programs can fill in what family may not know about college or professional school.
+- **Getting help is part of succeeding.** See the [Student Stress and Support Guide](stress-guide.qmd) for signs to watch for and where to go.
+
+## Sources
+
+| Topic | Source |
+|---|---|
+| Academic households and hair cortisol | [Bertrams & Minkley, *Frontiers in Psychiatry* (2020)](https://www.frontiersin.org/articles/10.3389/fpsyt.2020.00580/full); [Ruhr-University Bochum summary](https://news.rub.de/english/press-releases/2020-06-25-psychology-children-academics-exhibit-more-stress) |
+| Medical students with physician relatives | [Choi et al., *MedEdPublish* (2018)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10712000/); [Strowd et al., Wake Forest (2020)](https://school.wakehealth.edu/-/media/WakeForest/School/Files/About-the-School-of-Medicine/WFJSM/JournalSOM_2020-Physician-Legacy---Strowd.pdf?la=en) |
+| Family achievement guilt | [Covarrubias & Fryberg (2014)](https://firstgen.naspa.org/scholarly-article/movin-on-up-to-college-first-generation-college-students-experiences-with-family-achievement-guilt); [Covarrubias, Romero & Trivelli, *Journal of Child and Family Studies* (2015)](https://link.springer.com/10.1007/s10826-014-0003-8); [Covarrubias et al. (2021)](https://firstgen.naspa.org/scholarly-article/facets-of-family-achievement-guilt-for-low-income-latinx-and-asian-first-generation-students) |
+| Moral vs. academic support | [Covarrubias lab research](https://rcovarrubias.sites.ucsc.edu/research/) |
+| Rising parental expectations | [Curran & Hill, *Psychological Bulletin* (2022)](https://ray.yorksj.ac.uk/id/eprint/5802/); [LSE summary](https://www.lse.ac.uk/News/Latest-news-from-LSE/2022/c-Mar-22/Rising-Parental-Expectations-Linked-to-Perfectionism) |

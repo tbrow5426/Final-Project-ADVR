@@ -1,0 +1,219 @@
+/* ==========================================================
+   Student Stress & Support — site styles
+   A calm, supportive look: deep teal for trust, soft sage
+   backgrounds for breathing room, warm coral reserved for
+   crisis information so it stands out when it matters.
+   ========================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Source+Sans+3:wght@400;600&display=swap");
+
+:root { 
+  --teal:        #2F6F73;  /* primary: headings, links, chart bars */
+  --teal-dark:   #1F4E51;  /* navbar, hover states */
+  --sage-light:  #EEF4F2;  /* soft section backgrounds */
+  --sage:        #CFE0DA;  /* borders, dividers */
+  --coral:       #B85042;  /* crisis / urgent only */
+  --coral-light: #FBEDEA;
+  --ink:         #24302F;  /* body text */
+  --muted:       #5E6B6A;  /* captions, meta */
+  --white:       #FFFFFF;
+}
+
+/* ---------- Base ---------- */
+body {
+  font-family: "Source Sans 3", "Segoe UI", Arial, sans-serif;
+  font-size: 1.075rem;
+  line-height: 1.7;
+  color: var(--ink);
+  background-color: var(--white);
+}
+
+h1, h2, h3, h4,
+.title {
+  font-family: "Lora", Georgia, serif;
+  color: var(--teal-dark);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+h3 {
+  margin-top: 2rem;
+}
+
+p {
+  max-width: 70ch;
+}
+
+a {
+  color: var(--teal);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover,
+a:focus {
+  color: var(--teal-dark);
+  text-decoration-thickness: 2px;
+}
+
+/* Visible keyboard focus for accessibility */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--coral);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--sage);
+  margin: 2.5rem 0;
+  opacity: 1;
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+  background-color: var(--teal-dark) !important;
+}
+
+.navbar .navbar-title,
+.navbar .nav-link,
+.navbar .navbar-brand {
+  color: var(--white) !important;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: var(--sage) !important;
+}
+
+/* ---------- Page title block ---------- */
+#title-block-header {
+  background-color: var(--sage-light);
+  border-radius: 12px;
+  padding: 1.75rem 2rem;
+  margin-bottom: 2rem;
+}
+
+#title-block-header .subtitle {
+  font-family: "Source Sans 3", Arial, sans-serif;
+  font-style: italic;
+  color: var(--muted);
+  font-size: 1.15rem;
+}
+
+.quarto-title-meta-heading,
+.quarto-title-meta-contents {
+  color: var(--muted);
+}
+
+/* ---------- Two-column "Recognize / Cope" cards ---------- */
+.columns > .column:not(:empty) {
+  background-color: var(--sage-light);
+  border-radius: 12px;
+  padding: 1rem 1.25rem 0.5rem;
+}
+
+.columns .column h3 {
+  margin-top: 0.25rem;
+}
+
+/* ---------- Lists ---------- */
+ul li::marker {
+  color: var(--teal);
+}
+
+ul li {
+  margin-bottom: 0.3rem;
+}
+
+/* ---------- Callouts ---------- */
+/* Crisis box: warm and unmistakable */
+.callout-important {
+  background-color: var(--coral-light) !important;
+  border-color: var(--coral) !important;
+}
+
+.callout-important .callout-header,
+.callout-important h2 {
+  color: var(--coral) !important;
+}
+
+/* Disclaimer / info box: calm teal */
+.callout-note {
+  background-color: var(--sage-light) !important;
+  border-color: var(--teal) !important;
+}
+
+.callout {
+  border-radius: 10px;
+}
+
+/* ---------- Resource table ---------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 1rem 0 1.5rem;
+}
+
+thead th {
+  background-color: var(--teal);
+  color: var(--white);
+  font-weight: 600;
+  border: none !important;
+  padding: 0.65rem 0.9rem !important;
+}
+
+tbody td {
+  padding: 0.6rem 0.9rem !important;
+  border-top: 1px solid var(--sage) !important;
+  vertical-align: top;
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--sage-light);
+}
+
+/* ---------- Figures (ggplot chart, loop diagram) ---------- */
+.cell-output-display {
+  margin: 1rem 0;
+}
+
+.quarto-figure,
+.cell-output-display .grViz {
+  background-color: var(--white);
+  border: 1px solid var(--sage);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+figcaption,
+.figure-caption {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ---------- Footer ---------- */
+.nav-footer {
+  background-color: var(--sage-light);
+  color: var(--muted);
+  border-top: 1px solid var(--sage);
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 768px) {
+  .columns {
+    display: block;
+  }
+
+  .columns > .column {
+    width: 100% !important;
+    margin-bottom: 1rem;
+  }
+
+  #title-block-header {
+    padding: 1.25rem;
+  }
+}

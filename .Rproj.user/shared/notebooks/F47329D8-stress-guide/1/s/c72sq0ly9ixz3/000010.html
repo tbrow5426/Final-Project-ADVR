@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>body{background-color:white;}</style>
+<link href="lib/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
+<script src="lib/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="lib/viz-1.8.2/viz.js"></script>
+<link href="lib/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="lib/grViz-binding-1.0.12/grViz.js"></script>
+
+</head>
+<body>
+<!-- htmlwidget-container-begin -->
+<div class="grViz html-widget html-fill-item" id="htmlwidget-a068a5b0f03f56f54222" style="width:504px;height:504px;"></div>
+<!-- htmlwidget-container-end -->
+<script type="application/json" data-for="htmlwidget-a068a5b0f03f56f54222">{"x":{"diagram":"\ndigraph stress_loops {\n  graph [rankdir = LR, bgcolor = \"transparent\", fontname = \"Helvetica\", nodesep = 0.4]\n  node  [shape = box, style = \"rounded,filled\", fillcolor = \"#F2F4F4\",\n         color = \"#9AA5A6\", fontname = \"Helvetica\", fontsize = 12]\n  edge  [color = \"#5B6B6C\", fontname = \"Helvetica\", fontsize = 11]\n\n  demands  [label = \"Academic\\ndemands\"]\n  stress   [label = \"Stress\", fillcolor = \"#F6D8D2\", color = \"#B85042\"]\n  sleep    [label = \"Sleep and\\nfocus\"]\n  behind   [label = \"Falling\\nbehind\"]\n  time     [label = \"Free time\"]\n  delay    [label = \"Delay in\\ngetting help\"]\n  know     [label = \"Knowing\\nwhere to go\"]\n  support  [label = \"Getting\\nsupport\"]\n  guide    [label = \"This guide\", fillcolor = \"#2F6F73\", color = \"#2F6F73\", fontcolor = \"white\"]\n\n  # R1: stress spiral\n  demands -> stress  [label = \"+\"]\n  stress  -> sleep   [label = \"−\"]\n  sleep   -> behind  [label = \"−\"]\n  behind  -> demands [label = \"+\"]\n\n  # R2: no time for help\n  stress -> time  [label = \"−\"]\n  time   -> delay [label = \"−\"]\n  delay  -> stress [label = \"+\"]\n\n  # B: support works (where the guide acts)\n  guide   -> know    [label = \"+\"]\n  know    -> delay   [label = \"−\"]\n  delay   -> support [label = \"−\"]\n  support -> stress  [label = \"−\"]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<!-- htmlwidget-sizing-policy-base64 PHNjcmlwdCB0eXBlPSJhcHBsaWNhdGlvbi9odG1sd2lkZ2V0LXNpemluZyIgZGF0YS1mb3I9Imh0bWx3aWRnZXQtYTA2OGE1YjBmMDNmNTZmNTQyMjIiPnsidmlld2VyIjp7IndpZHRoIjo0NTAsImhlaWdodCI6MzUwLCJwYWRkaW5nIjoxNSwiZmlsbCI6dHJ1ZX0sImJyb3dzZXIiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1MDAsInBhZGRpbmciOjQwLCJmaWxsIjpmYWxzZX19PC9zY3JpcHQ+ -->
+</body>
+</html>

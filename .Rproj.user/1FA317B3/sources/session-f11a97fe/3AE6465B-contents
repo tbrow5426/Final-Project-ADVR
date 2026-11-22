@@ -1,0 +1,179 @@
+---
+title: "Stress Across the Academic Path"
+subtitle: "How stress and help-seeking compare for college, graduate, medical (MD), and law (JD) students"
+author: "Theodore Brown Jr."
+format:
+  html:
+    toc: true
+    toc-title: "On this page"
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+library(dplyr)
+library(tibble)
+library(ggplot2)
+library(DiagrammeR)
+
+teal      <- "#2F6F73"
+teal_dark <- "#1F4E51"
+sage      <- "#CFE0DA"
+coral     <- "#B85042"
+muted     <- "#5E6B6A"
+
+group_levels <- c("College students", "Graduate students",
+                  "Medical students (MD)", "Law students (JD)")
+
+theme_guide <- function() {
+  theme_minimal(base_size = 13) +
+    theme(panel.grid = element_blank(),
+          axis.text.x = element_blank(),
+          axis.text.y = element_text(color = "#24302F"),
+          strip.text = element_text(face = "bold", color = teal_dark, hjust = 0),
+          plot.caption = element_text(color = muted, hjust = 0, size = 9.5),
+          plot.title.position = "plot")
+}
+```
+
+Stress doesn't end with a bachelor's degree. For many students, it changes shape. Graduate, medical, and law students face longer hours, high-stakes exams, debt, and intense competition. Professional students also face a pressure most undergraduates don't: worrying that getting mental health care could affect their future **license** to practice.
+
+::: {.callout-warning appearance="simple"}
+## Read these numbers with care
+
+Each group's figures come from a **different study**, with different screening tools, years, and samples. They show the general picture for each group, not exact gaps between groups. The source table at the bottom lists the tool and year behind every number.
+:::
+
+## Symptoms by path
+
+```{r}
+#| label: symptoms-chart
+#| fig-width: 8
+#| fig-height: 3.8
+#| fig-alt: "Lollipop chart comparing the share of students with depression and anxiety symptoms across college, graduate, medical, and law students."
+
+symptoms <- tribble(
+  ~group,                  ~measure,     ~pct,
+  "College students",      "Depression", 37,
+  "College students",      "Anxiety",    32,
+  "Graduate students",     "Depression", 17,
+  "Graduate students",     "Anxiety",    24,
+  "Medical students (MD)", "Depression", 27.2,
+  "Law students (JD)",     "Depression", 17,
+  "Law students (JD)",     "Anxiety",    37
+) |>
+  mutate(group   = factor(group, levels = rev(group_levels)),
+         measure = factor(measure, levels = c("Depression", "Anxiety")))
+
+ggplot(symptoms, aes(x = pct, y = group)) +
+  geom_segment(aes(x = 0, xend = pct, yend = group), color = sage, linewidth = 2.5) +
+  geom_point(size = 4.5, color = teal) +
+  geom_text(aes(label = paste0(pct, "%")), hjust = -0.45, size = 4.2, color = "#24302F") +
+  facet_wrap(~ measure) +
+  scale_x_continuous(limits = c(0, 50), expand = c(0, 0)) +
+  labs(x = NULL, y = NULL,
+       caption = paste0(
+         "Share of students screening positive for symptoms. Medical-student anxiety was not part of the source meta-analysis.\n",
+         "Sources: Healthy Minds Study 2024–25; graduate systematic review cited in Nature Biotechnology (2023);\n",
+         "Rotenstein et al., JAMA (2016); Survey of Law Student Well-Being (2014)."
+       )) +
+  theme_guide()
+```
+
+**What stands out:**
+
+- **College students** overall report high symptom levels, though Healthy Minds data show depression and anxiety have *declined* each year since 2022.
+- **Medical students** show depressive symptoms in more than 1 in 4 students across 43 countries, well above the general adult population.
+- **Law students** stand out for anxiety: more than a third screened positive, and 14% screened in the severe range.
+- **Graduate students** vary widely by study. A large review puts depression and anxiety near 17% and 24%, while one well-known 2018 survey of mostly PhD students found about 4 in 10, though that survey was not a random sample.
+
+## Who gets help
+
+The bigger difference between paths may not be how many students struggle, but **how many get help**.
+
+```{r}
+#| label: help-chart
+#| fig-width: 8
+#| fig-height: 3.4
+#| fig-alt: "Bar chart showing the share of students getting mental health help: about 60% of college students with symptoms, 36% of graduate students, about half of law students who needed help, and 15.7% of medical students who screened positive for depression."
+
+help <- tribble(
+  ~group,                  ~pct,  ~what,
+  "College students",      60,    "with symptoms, got treatment",
+  "Graduate students",     36,    "sought help for grad-school distress",
+  "Medical students (MD)", 15.7,  "screened positive, sought treatment",
+  "Law students (JD)",     50,    "needed help, got counseling"
+) |>
+  mutate(label = paste0(group, "\n", what),
+         label = factor(label, levels = rev(label[match(group_levels, group)])))
+
+ggplot(help, aes(x = pct, y = label)) +
+  geom_col(fill = teal, width = 0.6) +
+  geom_text(aes(label = paste0(pct, "%")), hjust = -0.2, size = 4.3, color = "#24302F") +
+  scale_x_continuous(limits = c(0, 75), expand = c(0, 0)) +
+  labs(x = NULL, y = NULL,
+       caption = "Each bar uses a different measure of help-seeking, so compare direction, not exact gaps.") +
+  theme_guide() +
+  theme(axis.text.y = element_text(lineheight = 1.1))
+```
+
+Medical students stand out: in the meta-analysis, only about **1 in 6** who screened positive for depression sought psychiatric treatment.
+
+## A pressure unique to professional students: licensure
+
+Future doctors and lawyers must pass a licensing review before they can practice. Some of these reviews have asked about past mental health diagnoses or treatment. Students hear about these questions, and many decide it is safer not to get help.
+
+| Path | What the research found |
+|------------------------------------|------------------------------------|
+| **Law (JD)** | In the 2021 Survey of Law Student Well-Being, **44%** of law students said they feared seeking help for a mental health issue because it could threaten their bar admission. |
+| **Medicine (MD)** | At one U.S. medical school, **33%** of students said licensing disclosure questions substantially discourage them from seeking treatment, and **91%** were unsure or wrong about whether their state even asks. |
+
+This is where **law and policy** become a leverage point in the system:
+
+```{r}
+#| label: licensure-loop
+#| fig-alt: "Diagram: licensure and bar questions about mental health history increase fear of disclosure, which delays help, which increases stress. Policy change that asks only about current impairment reduces fear of disclosure."
+
+grViz("
+digraph licensure {
+  graph [rankdir = LR, bgcolor = 'transparent', fontname = 'Helvetica', nodesep = 0.45]
+  node  [shape = box, style = 'rounded,filled', fillcolor = '#F2F4F4',
+         color = '#9AA5A6', fontname = 'Helvetica', fontsize = 12]
+  edge  [color = '#5B6B6C', fontname = 'Helvetica', fontsize = 11]
+
+  questions [label = 'Licensure / bar\\nquestions about\\nmental health history']
+  fear      [label = 'Fear of\\ndisclosure']
+  delay     [label = 'Delay in\\ngetting help']
+  stress    [label = 'Stress and\\nsymptoms', fillcolor = '#F6D8D2', color = '#B85042']
+  policy    [label = 'Policy change:\\nask only about\\ncurrent impairment',
+             fillcolor = '#2F6F73', color = '#2F6F73', fontcolor = 'white']
+
+  questions -> fear   [label = '+']
+  fear      -> delay  [label = '+']
+  delay     -> stress [label = '+']
+  policy    -> fear   [label = '−']
+}
+")
+```
+
+That change is already happening. According to the AAMC, **43 medical licensing boards** have removed questions about past mental health history and now ask only about current impairment. Several states, including Washington and Louisiana, have removed mental health questions from bar admission reviews.
+
+## Why this matters for the guide
+
+Morehouse School of Medicine trains future physicians and health professionals, so the barriers on this page apply directly to the students the guide serves. The [Student Stress and Support Guide](stress-guide.qmd) focuses on the earliest fix: helping students recognize stress and know where to go **before** fear and delay take over.
+
+## Sources
+
+| Group | Source | Tool and sample |
+|------------------------|------------------------|------------------------|
+| College students | [Healthy Minds Study 2024–2025](https://healthpolicy.ucla.edu/our-work/publications/healthy-minds-study-2024-2025-data-report); [treatment rate](https://ph.ucla.edu/news-events/news/third-year-row-college-students-are-reporting-lower-rates-depression-anxiety-and) | PHQ-9 and GAD-7, moderate to severe; 84,000+ students at 135 schools (undergrad and grad) |
+| Graduate students | [Nature Biotechnology (2023)](https://www.nature.com/articles/s41587-023-01778-9), citing a systematic review and a help-seeking survey | Pooled estimates across studies |
+| Medical students | [Rotenstein et al., JAMA (2016)](https://pubmed.ncbi.nlm.nih.gov/27923088/) | Meta-analysis of 167 cross-sectional studies, 43 countries |
+| Law students | [Survey of Law Student Well-Being (2014)](https://thebarexaminer.ncbex.org/article/december-2015/helping-law-students-get-the-help-they-need-an-analysis-of-data-regarding-law-students-reluctance-to-seek-help-and-policy-recommendations-for-a-variety-of-stakeholders/) | 3,300+ students at 15 law schools |
+| Law, licensure | [2021 Survey of Law Student Well-Being](https://thebarexaminer.ncbex.org/article/summer-2022/2021-survey-of-law-student-well-being/); [NC Bar summary](https://www.ncbarblog.com/?p=28227) | 5,000+ students at 39 law schools |
+| Medicine, licensure | [General Hospital Psychiatry (2021)](https://pubmed.ncbi.nlm.nih.gov/34229281/); [AAMC](https://www.aamc.org/news/destigmatizing-mental-health-medical-students) | 327 students at one medical school |
+
+

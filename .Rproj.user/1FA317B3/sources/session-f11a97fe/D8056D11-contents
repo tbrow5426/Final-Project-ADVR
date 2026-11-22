@@ -1,0 +1,28 @@
+project:
+  type: website
+
+website:
+  title: "Student Success Linked to Levels of Stress"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: stress-guide.qmd
+        text: Stress & Support Guide
+      - href: stress-by-path.qmd
+        text: Stress by Path
+      - href: family-pressure.qmd
+        text: family-pressure
+      - href: Public Health Impact.qmd
+        text: Public Health Impact
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+editor: visual
+

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>body{background-color:white;}</style>
+<link href="lib/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
+<script src="lib/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="lib/viz-1.8.2/viz.js"></script>
+<link href="lib/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="lib/grViz-binding-1.0.12/grViz.js"></script>
+
+</head>
+<body>
+<!-- htmlwidget-container-begin -->
+<div class="grViz html-widget html-fill-item" id="htmlwidget-03850dd6ed9ed9047f45" style="width:504px;height:504px;"></div>
+<!-- htmlwidget-container-end -->
+<script type="application/json" data-for="htmlwidget-03850dd6ed9ed9047f45">{"x":{"diagram":"\ndigraph family_pressure {\n  graph [rankdir = LR, bgcolor = \"transparent\", fontname = \"Helvetica\", nodesep = 0.4, ranksep = 0.5]\n  node  [shape = box, style = \"rounded,filled\", fillcolor = \"#F2F4F4\",\n         color = \"#9AA5A6\", fontname = \"Helvetica\", fontsize = 12]\n  edge  [color = \"#5B6B6C\", fontname = \"Helvetica\", fontsize = 11]\n\n  legacy   [label = \"Parents hold\\nadvanced degrees\"]\n  dreams   [label = \"Parents want what\\nthey could not have\"]\n  expect   [label = \"Perceived family\\nexpectations\"]\n  pressure [label = \"Pressure\\nto achieve\"]\n  perfect  [label = \"Perfectionism\"]\n  stress   [label = \"Stress\", fillcolor = \"#F6D8D2\", color = \"#B85042\"]\n  fear     [label = \"Fear of\\ndisappointing family\"]\n  help     [label = \"Seeking help\"]\n  achieve  [label = \"Achievement\\n(next degree, title)\"]\n  support  [label = \"Open family talks +\\nacademic support\",\n            fillcolor = \"#2F6F73\", color = \"#2F6F73\", fontcolor = \"white\"]\n\n  legacy   -> expect   [label = \"+\"]\n  dreams   -> expect   [label = \"+\"]\n  expect   -> pressure [label = \"+\"]\n  pressure -> perfect  [label = \"+\"]\n  perfect  -> stress   [label = \"+\"]\n  stress   -> fear     [label = \"+\"]\n  fear     -> help     [label = \"−\"]\n  help     -> stress   [label = \"−\"]\n  pressure -> achieve  [label = \"+\"]\n  achieve  -> expect   [label = \"+  (the bar rises)\"]\n  support  -> pressure [label = \"−\"]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<!-- htmlwidget-sizing-policy-base64 PHNjcmlwdCB0eXBlPSJhcHBsaWNhdGlvbi9odG1sd2lkZ2V0LXNpemluZyIgZGF0YS1mb3I9Imh0bWx3aWRnZXQtMDM4NTBkZDZlZDllZDkwNDdmNDUiPnsidmlld2VyIjp7IndpZHRoIjo0NTAsImhlaWdodCI6MzUwLCJwYWRkaW5nIjoxNSwiZmlsbCI6dHJ1ZX0sImJyb3dzZXIiOnsid2lkdGgiOjk2MCwiaGVpZ2h0Ijo1MDAsInBhZGRpbmciOjQwLCJmaWxsIjpmYWxzZX19PC9zY3JpcHQ+ -->
+</body>
+</html>

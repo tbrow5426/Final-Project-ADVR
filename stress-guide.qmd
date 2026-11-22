@@ -1,0 +1,112 @@
+---
+title: "Student Stress and Support Guide"
+subtitle: "Is this normal stress, or is it time to talk to someone? And who do I talk to?"
+author: "Theodore Brown Jr."
+format:
+  html:
+    toc: false
+    page-layout: article
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+library(dplyr)
+library(ggplot2)
+library(DiagrammeR)
+```
+
+::: {.callout-important appearance="simple"}
+## In crisis right now?
+Call or text **988** (Suicide & Crisis Lifeline) or chat at [988lifeline.org](https://988lifeline.org). If you are in immediate danger, call **911**.
+:::
+
+:::: {.columns}
+
+::: {.column width="48%"}
+### 1 · Recognize
+**Signs stress may be affecting your daily life**
+
+- Trouble falling or staying asleep
+- Hard to focus in class or while studying
+- Feeling irritable, on edge, or overwhelmed most days
+- Headaches, stomachaches, or tension
+- Skipping meals, classes, or time with friends
+:::
+
+::: {.column width="4%"}
+:::
+
+::: {.column width="48%"}
+### 2 · Cope
+**Things you can start today**
+
+- Move your body, even a short walk
+- Try slow breathing or a few minutes of quiet
+- Pick your top priorities and let some things wait
+- Keep a steady sleep schedule
+- Reach out to people who help you feel better
+:::
+
+::::
+
+### 3 · Find support
+
+**It may be time to talk to someone if** you are struggling to cope, or your stress doesn't go away or keeps getting in the way of school, sleep, or relationships. Asking for help early is a smart move, not a last resort.
+
+<!-- TODO: Replace each line below with VERIFIED MSM details (name, phone, link, hours) before publishing. -->
+
+| Where to go | What it's for | How to reach it |
+|---|---|---|
+| MSM student counseling services | Confidential counseling for enrolled students | *Add verified phone and link* |
+| MSM Office of Student Affairs | Help with academic pressure, leave, and accommodations | *Add verified phone and link* |
+| 988 Suicide & Crisis Lifeline | 24/7 support when you're in distress | Call or text 988 · [988lifeline.org](https://988lifeline.org) |
+| NIMH: Find Help | How to find mental health care in the community | [nimh.nih.gov/findhelp](https://www.nimh.nih.gov/findhelp) |
+
+---
+
+### Why students don't get help
+
+```{r}
+#| label: barriers-chart
+#| fig-width: 7
+#| fig-height: 2.6
+#| fig-alt: "Bar chart of barriers college students name for not getting mental health support."
+
+# PRELIMINARY: these two values come from the Healthy Minds Study 2024-2025
+# figures in the pitch deck. Replace this tibble with the real HMS data once
+# the dataset arrives, e.g.:
+#   barriers <- readr::read_csv("data/hms_barriers.csv") |>
+#     filter(...) |> summarise(...)
+barriers <- tibble::tribble(
+  ~barrier,                                   ~pct,
+  "Lack of time",                             23,
+  "Prefer to handle it alone or with family", 18
+)
+
+barriers |>
+  mutate(barrier = reorder(barrier, pct)) |>
+  ggplot(aes(x = pct, y = barrier)) +
+  geom_col(fill = "#2F6F73", width = 0.6) +
+  geom_text(aes(label = paste0(pct, "%")), hjust = -0.2, size = 4.5) +
+  scale_x_continuous(limits = c(0, 30), expand = c(0, 0)) +
+  labs(x = NULL, y = NULL,
+       caption = "Source: Healthy Minds Study, 2024–2025 (students with depression or anxiety symptoms).") +
+  theme_minimal(base_size = 13) +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_blank(),
+        plot.caption = element_text(color = "grey40", hjust = 0))
+```
+
+**How to read this:** a **+** means the two things move in the same direction, and a **−** means they move in opposite directions. Stress feeds two loops that make it grow on its own: falling behind adds to academic demands, and having less time pushes back getting help. The guide steps in at *knowing where to go*. That shortens the delay, so students reach support sooner and stress comes down.
+
+---
+
+::: {.callout-note appearance="simple"}
+**This guide is for information only.** It does not diagnose or treat any condition and is not a substitute for professional care. It does not collect any personal information.
+
+Content adapted from the National Institute of Mental Health, [*I'm So Stressed Out!* Fact Sheet](https://www.nimh.nih.gov/health/publications/so-stressed-out-fact-sheet).
+:::
